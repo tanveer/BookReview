@@ -1,0 +1,10 @@
+<h1 class="page-header"><%= params[:category] %></h1>
+  
+<% if @books.count == 0 %>
+  <h1>There are no books in this category of <%= params[:category] %></h1>
+<% else %>
+  <% @books.each do |book| %> 
+    <h1><%= link_to book.title, book_path(book)%> <small><%= book.author %></small></h1>
+  <% end %>
+<% end %>
+  
