@@ -10,6 +10,14 @@ class BooksController < ApplicationController
       @books = Book.where(category_id: @category_id).order("created_at DESC")
     end
   end
+# do this later
+  # def show
+  #   if @book.reviews.blank?
+  #     @average_review = 0
+  #   else
+  #     @average_review = @book_reviews.average(:rating).round(2)
+  #   end
+  # end
 
   def new
     @book = current_user.books.build
@@ -48,7 +56,7 @@ class BooksController < ApplicationController
 private 
 
 def book_params
-  params.require(:book).permit(:title, :description, :author, :category_id)
+  params.require(:book).permit(:title, :description, :author, :category_id, :book_image)
 end
 
 def find_book

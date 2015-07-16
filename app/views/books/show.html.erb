@@ -1,12 +1,57 @@
-  <h1><%= @book.title %></h1>
-  <p><%= @book.description %></p>
-  <h3><%= @book.author %></h3>
-  <h4><%= @book.category.name %></h4>
-  <%= link_to "Back", root_path, class: "btn btn-default" %>
-  
+<div class="row">
+    <div class="col-md-4">
+      <%=image_tag @book.book_image, class: "book-show thumbnail" %>
+    </div>
+    <div class="col-md-8">
+      <div class="book-info">
+          <h2 class="book-title"><%= @book.title %></h2>
+          <!-- <h4>Average Rating<div class='average-review-rating' data-score<%= @average_review %> ></h4> -->
+          <p class="book-desc"><%= @book.description %></p>
+          <h4 >Author<br /><small class="book-author"><%= @book.author  %></small> </h4>
+      </div>
+    </div>
+</div><br/ >
+
+<div class="row">
+  <div class="col-md-4">
+<!-- Riviews and rating area -->
+    <div class="reviews">
+      <h1>Reviews</h1>
+        <%= render @book.reviews %>
+      <div>
+        <%= link_to "Add Review", new_book_review_path(@book), class: "btn btn-custom"%>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<div class="links btn-group">
+  <%= link_to "Back", root_path, class: "btn btn-custom" %>
   <% if user_signed_in? %>
     <% if @book.user_id == current_user.id %>
-     <%= link_to "Edit", edit_book_path(@book), class: "btn btn-default" %>
-     <%= link_to "Delete", book_path(@book) , method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-default" %>
+     <%= link_to "Edit", edit_book_path(@book), class: "btn btn-custom" %>
+     <%= link_to "Delete", book_path(@book) , method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-custom" %>
     <% end %>
   <% end %>
+</div>
+
+  <script>
+  $('.review-rating').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>
+
+<script>
+  $('.average-review-rating').raty({
+    readOnly: true,
+    path: '/assets/',
+    score: function() {
+      return $(this).attr('data-score')
+    }
+  });
+</script>
+
